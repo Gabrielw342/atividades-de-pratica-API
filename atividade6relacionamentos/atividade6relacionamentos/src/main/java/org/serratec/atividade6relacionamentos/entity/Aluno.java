@@ -1,10 +1,10 @@
 package org.serratec.atividade6relacionamentos.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,25 +25,46 @@ public class Aluno {
     @Column(unique = true)
     private String email;
 
+    @CPF
     private String cpf;
 
     @ManyToMany(mappedBy = "alunos")
     @JsonIgnore
-    private List<Curso> cursos = new ArrayList<>();
+    private List<Curso> cursos;
 
-    public Aluno() {}
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getCpf() { return cpf; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public List<Curso> getCursos() { return cursos; }
-    public void setCursos(List<Curso> cursos) { this.cursos = cursos; }
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
 }

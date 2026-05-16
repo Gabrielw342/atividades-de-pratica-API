@@ -19,23 +19,43 @@ public class Topico {
 
     private Integer cargaHoraria;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_curso")
     private Curso curso;
 
-    public Topico() {}
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
+    public String getTitulo() {
+        return titulo;
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-    public Integer getOrdem() { return ordem; }
-    public void setOrdem(Integer ordem) { this.ordem = ordem; }
+    public Integer getOrdem() {
+        return ordem;
+    }
 
-    public Integer getCargaHoraria() { return cargaHoraria; }
-    public void setCargaHoraria(Integer cargaHoraria) { this.cargaHoraria = cargaHoraria; }
+    public void setOrdem(Integer ordem) {
+        this.ordem = ordem;
+    }
 
-    public Curso getCurso() { return curso; }
-    public void setCurso(Curso curso) { this.curso = curso; }
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(Integer cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 }

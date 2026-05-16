@@ -1,9 +1,8 @@
 package org.serratec.atividade6relacionamentos.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -21,40 +20,62 @@ public class Curso {
 
     private String descricao;
 
-    @DecimalMin("0.0")
-    private Double preco;
+    @DecimalMin("0.00")
+    private BigDecimal preco;
 
-    // EXERCÍCIO 3 (N:N)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
         name = "curso_aluno",
         joinColumns = @JoinColumn(name = "id_curso"),
         inverseJoinColumns = @JoinColumn(name = "id_aluno")
     )
+    private List<Aluno> alunos;
+
+    @OneToMany(mappedBy = "curso")
     @JsonIgnore
-    private List<Aluno> alunos = new ArrayList<>();
+    private List<Topico> topicos;
 
-    // EXERCÍCIO 4 (1:N)
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Topico> topicos = new ArrayList<>();
+    public Long getId() {
+        return id;
+    }
 
-    public Curso() {}
+    public String getNome() {
+        return nome;
+    }
 
-    public Long getId() { return id; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getDescricao() {
+        return descricao;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-    public Double getPreco() { return preco; }
-    public void setPreco(Double preco) { this.preco = preco; }
+    public BigDecimal getPreco() {
+        return preco;
+    }
 
-    public List<Aluno> getAlunos() { return alunos; }
-    public void setAlunos(List<Aluno> alunos) { this.alunos = alunos; }
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
 
-    public List<Topico> getTopicos() { return topicos; }
-    public void setTopicos(List<Topico> topicos) { this.topicos = topicos; }
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public List<Topico> getTopicos() {
+        return topicos;
+    }
+
+    public void setTopicos(List<Topico> topicos) {
+        this.topicos = topicos;
+    }
 }
