@@ -1,7 +1,9 @@
 package org.serratec.atividade6relacionamentos.entity;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -18,18 +20,13 @@ public class Editora {
     @Size(max = 80)
     private String nome;
 
-    @NotBlank
-    @Size(max = 40)
     private String cnpj;
-    
+
     private String cidade;
 
     @OneToMany(mappedBy = "editora")
+    @JsonManagedReference
     private List<Livro> livros = new ArrayList<>();
-
-    public Editora() {
-        this.livros = new ArrayList<>();
-    }
 
     public Long getId() {
         return id;
@@ -61,5 +58,9 @@ public class Editora {
 
     public List<Livro> getLivros() {
         return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
     }
 }

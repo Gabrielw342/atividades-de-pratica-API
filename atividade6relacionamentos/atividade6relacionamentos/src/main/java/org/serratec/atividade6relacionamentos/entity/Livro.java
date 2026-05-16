@@ -1,7 +1,13 @@
 package org.serratec.atividade6relacionamentos.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Livro {
@@ -10,30 +16,31 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Título é obrigatório")
+    @NotBlank
+    @Size(max = 100)
     private String titulo;
 
-    @NotBlank(message = "ISBN é obrigatório")
+    @NotBlank
     private String isbn;
 
-    @NotNull(message = "Ano de publicação é obrigatório")
+    @NotNull
     private Integer anoPublicacao;
 
-    @NotNull(message = "Preço é obrigatório")
+    @NotNull
+    @DecimalMin("9.90")
     private Double preco;
 
     @ManyToOne
     @JoinColumn(name = "id_editora")
-    @NotNull(message = "Editora é obrigatória")
+    @JsonBackReference
     private Editora editora;
 
-    // getters e setters
+    @OneToMany(mappedBy = "livro")
+    @JsonManagedReference
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitulo() {
@@ -74,5 +81,13 @@ public class Livro {
 
     public void setEditora(Editora editora) {
         this.editora = editora;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }
