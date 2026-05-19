@@ -1,5 +1,6 @@
 package org.serratec.atividade6relacionamentos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,8 +22,9 @@ public class Topico {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_curso")
+    @JsonIgnore
     private Curso curso;
-
+    
     public Long getId() {
         return id;
     }

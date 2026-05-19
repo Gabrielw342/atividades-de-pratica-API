@@ -1,6 +1,5 @@
 package org.serratec.atividade6relacionamentos.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -31,8 +30,7 @@ public class Curso {
     )
     private List<Aluno> alunos;
 
-    @OneToMany(mappedBy = "curso")
-    @JsonIgnore
+    @OneToMany(mappedBy = "curso", fetch = FetchType.EAGER)
     private List<Topico> topicos;
 
     public Long getId() {
